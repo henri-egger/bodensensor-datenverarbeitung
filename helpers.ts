@@ -23,3 +23,10 @@ export function toCsvString(entries: Entry[]): string {
       + "," + e.avgSP60.toString()
   }).join('\n');
 }
+
+export function clean(val: string): string {
+  if (val === undefined || val === null || val.length === 0)
+    return "0";
+  else return val;
+  
+}
