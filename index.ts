@@ -1,11 +1,11 @@
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { RawEntry, Entry } from "./types.js";
-import { dayOfYear, makeAverage } from "./helpers.js";
+import { dayOfYear, makeAverage, toCsvString } from "./helpers.js";
 
-const dorfStr = readFileSync("./Dorf.csv").toString();
+const dorfStr = readFileSync(".input/Dorf.csv").toString();
 const dorfRawEntries: RawEntry[] = buildEntryList(dorfStr);
 
-const kreitStr = readFileSync("./Kreit.csv").toString();
+const kreitStr = readFileSync(".input/Kreit.csv").toString();
 const kreitRawEntries: RawEntry[] = buildEntryList(kreitStr);
 
 function buildEntryList(csv: string): RawEntry[] {
@@ -39,3 +39,10 @@ function processRawEntries(rawEntries: RawEntry[]): Entry[] {
 }
 
 const dorfEntries = processRawEntries(dorfRawEntries);
+const kreitEntries = processRawEntries(kreitRawEntries);
+
+const dorfCsvStr = toCsvString(dorfEntries);
+const kreitCsvStr = toCsvString(kreitEntries);
+
+writeFileSync("output/dorf_processed.csv", dorfCsvStr);
+writeFileSync("output/kreit_processed.csv", kreitCsvStr);

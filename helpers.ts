@@ -13,3 +13,13 @@ export function dayOfYear(dateString: string): number {
   const oneDay = 1000 * 60 * 60 * 24;
   return Math.floor(diff / oneDay);
 }
+
+export function toCsvString(entries: Entry[]): string {
+  return entries.map((e) => {
+    return e.date
+      + "," + e.avgTB30.toString()
+      + "," + e.avgTB60.toString()
+      + "," + e.avgSP30.toString()
+      + "," + e.avgSP60.toString()
+  }).join('\n');
+}
