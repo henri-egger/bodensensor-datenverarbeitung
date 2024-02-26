@@ -2,15 +2,6 @@ import { readFileSync, writeFileSync } from "fs";
 import { RawEntry, Entry } from "./types.js";
 import { dayOfYear, makeAverage, toCsvString, clean } from "./helpers.js";
 
-const dorfStr = readFileSync("./input/Dorf.csv").toString();
-const dorfRawEntries: RawEntry[] = buildEntryList(dorfStr);
-
-const kreitStr = readFileSync("./input/Kreit.csv").toString();
-const kreitRawEntries: RawEntry[] = buildEntryList(kreitStr);
-
-// const testStr = readFileSync("input/Test.csv").toString();
-// const testRawEntries = buildEntryList(testStr);
-
 function buildEntryList(csv: string): RawEntry[] {
   return csv.split('\n').map((line) => {
     const values = line.split(',');
@@ -41,14 +32,12 @@ function processRawEntries(rawEntries: RawEntry[]): Entry[] {
   return entries;
 }
 
-const dorfEntries = processRawEntries(dorfRawEntries);
-const kreitEntries = processRawEntries(kreitRawEntries);
-// const testEntries = processRawEntries(testRawEntries);
+const inputs = ["Dorf", "Kreit"];
 
-const dorfCsvStr = toCsvString(dorfEntries);
-const kreitCsvStr = toCsvString(kreitEntries);
-// const testCsvStr = toCsvString(testEntries);
-
-writeFileSync("output/dorf_processed.csv", dorfCsvStr);
-writeFileSync("output/kreit_processed.csv", kreitCsvStr);
-// writeFileSync("output/test_processed.csv", testCsvStr);
+inputs.forEach((e) => {
+  const str = readFileSync("./input/" + e + ".csv").toString();
+  const rawEntries: RawEntry[] = buildEntryList(str);
+  const entries = processRawEntries(rawEntries);
+  const csvStr = toCsvString(entries);
+  writeFileSync("./output/" + e + "_processed.csv", csvStr);
+})
