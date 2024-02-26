@@ -2,10 +2,10 @@ import { readFileSync, writeFileSync } from "fs";
 import { RawEntry, Entry } from "./types.js";
 import { dayOfYear, makeAverage, toCsvString } from "./helpers.js";
 
-const dorfStr = readFileSync(".input/Dorf.csv").toString();
+const dorfStr = readFileSync("./input/Dorf.csv").toString();
 const dorfRawEntries: RawEntry[] = buildEntryList(dorfStr);
 
-const kreitStr = readFileSync(".input/Kreit.csv").toString();
+const kreitStr = readFileSync("./input/Kreit.csv").toString();
 const kreitRawEntries: RawEntry[] = buildEntryList(kreitStr);
 
 function buildEntryList(csv: string): RawEntry[] {
